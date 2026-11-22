@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17223b">
+  <meta name="description" content="A calm, practical guide to understanding your credit and organizing your own next steps.">
+  <title>CreditLuna — A clearer path through credit</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2317223b'/%3E%3Cpath d='M25.8 5.9a14.4 14.4 0 1 0 8.3 25.6A15.5 15.5 0 0 1 25.8 5.9Z' fill='%23c9b7f3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') + '?v=16' }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="CreditLuna home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="currentColor" opacity=".18"/><path d="M25.8 5.9a14.4 14.4 0 1 0 8.3 25.6A15.5 15.5 0 0 1 25.8 5.9Z" fill="currentColor"/><circle cx="30.5" cy="10" r="1.5" fill="currentColor" opacity=".75"/></svg></span>
+      <span>credit<span class="brand-luna">luna</span></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav"><span class="sr-only">Toggle menu</span><span></span><span></span></button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+      <a href="#how">How it works</a>
+      <a href="#tools">Free tools</a>
+      <a href="#utilization">Utilization calculator</a>
+      <a href="/blog">Learn</a>
+      <a href="#build">Build credit</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#cfpb">Escalate</a>
+      <a href="#tracker">Case tracker</a>
+      <a href="#chat">Ask Luna</a>
+      <a class="nav-cta" href="#letters">Draft a letter <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="main" tabindex="-1"></main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <a class="brand footer-brand" href="#home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="currentColor" opacity=".18"/><path d="M25.8 5.9a14.4 14.4 0 1 0 8.3 25.6A15.5 15.5 0 0 1 25.8 5.9Z" fill="currentColor"/></svg></span><span>credit<span class="brand-luna">luna</span></span></a>
+      <div class="footer-links"><a href="/blog">Learn</a>{% if available_downloads %}<a href="/blog#checklists">Free checklists</a>{% endif %}<a href="#about">About</a><a href="#faq">FAQ</a><a href="#limits">How Luna works</a><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#disclaimer">Disclaimer</a><a href="#chat">Support & questions</a></div>
+      <p class="footer-note">Clarity for your next step. Not a credit repair service.</p>
+    </div>
+    <div class="footer-bottom"><span>© <span id="year"></span> CreditLuna AI · Prototype</span><span>Made for thoughtful progress, one phase at a time <span aria-hidden="true">✦</span></span></div>
+  </footer>
+  <script>window.creditlunaDownloads = {{ available_downloads | tojson }};</script>
+  <script src="{{ url_for('static', filename='utilization-math.js') }}" defer></script>
+  <script src="{{ url_for('static', filename='app.js') + '?v=15' }}" defer></script>
+</body>
+</html>
