@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17223b">
+  <title>{{ title }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ canonical }}">
+  {% if noindex %}<meta name="robots" content="noindex,nofollow">{% endif %}
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ canonical }}">
+  <meta property="og:site_name" content="CreditLuna">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%2317223b'/%3E%3Cpath d='M25.8 5.9a14.4 14.4 0 1 0 8.3 25.6A15.5 15.5 0 0 1 25.8 5.9Z' fill='%23c9b7f3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='blog.css') }}">
+  {% block head_extra %}{% endblock %}
+</head>
+<body class="blog-site">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="/#home" aria-label="CreditLuna home"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="currentColor" opacity=".18"/><path d="M25.8 5.9a14.4 14.4 0 1 0 8.3 25.6A15.5 15.5 0 0 1 25.8 5.9Z" fill="currentColor"/></svg></span><span>credit<span class="brand-luna">luna</span></span></a>
+    <nav class="blog-nav" aria-label="Primary navigation"><a href="/#home">Home</a><a href="/#how">How it works</a><a href="/#tools">Tools</a><a href="/blog" aria-current="page">Learn</a><a href="/#pricing">Pricing</a></nav>
+  </header>
+  <main id="main" class="blog-main">{% block content %}{% endblock %}</main>
+  <footer class="site-footer">
+    <div class="footer-top"><a class="brand footer-brand" href="/#home"><span class="brand-mark" aria-hidden="true">☾</span><span>credit<span class="brand-luna">luna</span></span></a><div class="footer-links"><a href="/blog">Learn</a>{% if available_downloads %}<a href="/blog#checklists">Free checklists</a>{% endif %}<a href="/#about">About</a><a href="/#faq">FAQ</a><a href="/#limits">How Luna works</a><a href="/#terms">Terms</a><a href="/#privacy">Privacy</a><a href="/#disclaimer">Disclaimer</a></div><p class="footer-note">Clarity for your next step. Not a credit repair service.</p></div>
+    <p class="blog-footer-disclosure">CreditLuna provides education and self-help tools, not credit repair or legal advice. We do not contact bureaus, creditors, furnishers, or collectors for you. No score increase, deletion, approval, investigation result, or timing is guaranteed. Dispute only information you believe is inaccurate or incomplete.</p>
+    <p class="blog-footer-disclosure">Affiliate disclosure: CreditLuna may earn a commission if you apply through links on this site, at no extra cost to you.</p>
+    <div class="footer-bottom"><span>© 2026 CreditLuna AI · Prototype</span><span>Made for thoughtful progress, one phase at a time ✦</span></div>
+  </footer>
+</body>
+</html>
