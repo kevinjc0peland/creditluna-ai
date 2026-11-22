@@ -1,0 +1,23 @@
+{% extends 'blog_base.html' %}
+{% block og_type %}article{% endblock %}
+{% block head_extra %}<script type="application/ld+json">{{ schema | tojson }}</script>{% endblock %}
+{% block content %}
+<div class="blog-wrap article-layout">
+  <a class="blog-back" href="/blog">← All guides</a>
+  {% if article.status == 'draft' %}<div class="draft-ribbon">DRAFT, NOT PUBLISHED</div>{% endif %}
+  <div class="blog-meta">{{ article.reading_minutes }} min read <span aria-hidden="true">·</span> {{ article.date }}</div>
+  <p class="article-notice">Educational information, not legal advice</p>
+  <article class="article-body">{{ body }}</article>
+  {% if downloads and download_enabled %}
+  <aside class="blog-panel download-panel" aria-label="Related downloads"><span class="panel-icon" aria-hidden="true">↓</span><div><div class="eyebrow">Keep it handy</div><h2>Free checklists</h2><p>Free, one page, printable. No sign-up needed.</p>
+  {% for key, filename in downloads %}
+    <a class="button button-ink" href="/downloads/{{ filename }}" download="creditluna-{{ filename }}">Free download: {{ 'First Dispute Checklist' if key == 'first-dispute-checklist' else 'Sold Debt Checklist' }} (PDF) ↓</a>
+
+  {% endfor %}</div></aside>
+  {% endif %}
+  {% if sample %}<aside class="blog-panel"><div><div class="eyebrow">EXAMPLE ONLY</div><h2>Fictional annotated bill of sale</h2><p>A teaching example, not a real document, evidence, or a court form.</p><a class="button button-outline" href="/blog/{{ article.slug }}/sample">View fictional sample ↗</a></div></aside>{% endif %}
+  <aside class="blog-panel tool-panel"><span class="panel-icon" aria-hidden="true">✦</span><div><div class="eyebrow">You stay in control</div><h2>Try the free tool</h2><p>Draft with your own facts, then review and send it yourself. Keep your dates and notes in one place.</p><div class="tool-actions"><a class="button button-ink" href="/#letters">Letter workspace ↗</a><a class="button button-outline" href="/#tracker">Case tracker ↗</a></div></div></aside>
+  {% if related %}<section class="related-guides"><div class="eyebrow">Keep learning</div><h2>Related articles</h2><ul>{% for other in related %}<li><a href="/blog/{{ other.slug }}">{{ other.title }} <span aria-hidden="true">↗</span></a></li>{% endfor %}</ul></section>{% endif %}
+  <p class="last-reviewed">Last reviewed {{ article.date }}{% if not article.counsel_reviewed %} · pending attorney review{% endif %}</p>
+</div>
+{% endblock %}
