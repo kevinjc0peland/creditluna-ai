@@ -1,0 +1,36 @@
+{% extends 'blog_base.html' %}
+{% block content %}
+<section class="blog-intro"><div class="blog-wrap"><div class="eyebrow">The CreditLuna learning library</div><h1>Find your footing.<br><em>Learn at your pace.</em></h1><p>Plain-language guides for reading your records, asking better questions, and choosing your own next steps.</p></div></section>
+<section class="blog-wrap blog-list" aria-label="Articles">
+  {% if articles %}
+  <p class="blog-kicker">Explore the guides <span>✦</span></p>
+  {% for article in articles %}
+  <article class="blog-list-item">
+    {% if article.status == 'draft' %}<div class="draft-ribbon">DRAFT, NOT PUBLISHED</div>{% endif %}
+    <div class="blog-meta">{{ article.reading_minutes }} min read <span aria-hidden="true">·</span> {{ article.date }}</div>
+    <h2><a href="/blog/{{ article.slug }}">{{ article.title }}</a></h2>
+    <p>{{ article.summary }}</p><a class="blog-read" href="/blog/{{ article.slug }}">Read the guide <span aria-hidden="true">↗</span></a>
+  </article>
+  {% endfor %}
+  {% else %}
+  <div class="blog-empty"><span class="blog-moon" aria-hidden="true">☾</span><h2>Articles are coming soon</h2><p>We’re preparing practical, carefully sourced guides. In the meantime, explore our free self-help tools.</p><a class="button button-ink" href="/#tools">Explore free tools ↗</a></div>
+  {% endif %}
+</section>
+{% if downloads %}
+<section class="blog-wrap checklist-section" id="checklists" aria-labelledby="checklists-title">
+  <div class="eyebrow">Keep it handy</div><h2 id="checklists-title">Free checklists</h2>
+  <p>Free, one page, printable. No sign-up needed.</p>
+  <div class="checklist-grid">
+    {% for key, item in downloads.items() %}
+    <article class="checklist-card">
+      <span class="panel-icon" aria-hidden="true">↓</span>
+      <h3>{{ item.title }}</h3><p>{{ item.description }}</p>
+      <p class="checklist-pages">One page, printable</p>
+      <a class="button button-ink" href="/downloads/{{ item.filename }}" download="creditluna-{{ item.filename }}">Download PDF ↓</a>
+      <a class="blog-read" href="/blog/{{ item.guide_slug }}">Read the guide ↗</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
