@@ -83,7 +83,7 @@ function renderBuild() {
             <li><span>${icon('check')}</span><span>No credit check</span></li>
             <li><span>${icon('check')}</span><span>Deposit fully refundable, per the partner’s page</span></li>
           </ul>
-          <a class="button button-lavender build-cta" href="https://apply.creditbuildercard.com/FRHELIUMBALLOONS?cd=1&" target="_blank" rel="sponsored noopener noreferrer">See Credit Builder Card <span>${icon('arrow')}</span></a>
+          <a class="button button-lavender build-cta" href="https://apply.creditbuildercard.com/" target="_blank" rel="sponsored noopener noreferrer">See Credit Builder Card <span>${icon('arrow')}</span></a>
           <p class="build-terms-note">Review the issuer's full terms, fees and APR on their application page before applying. Results vary and no credit score outcome is guaranteed.</p>
           <p class="affiliate-disclosure build-disclosure"><strong>Affiliate disclosure:</strong> CreditLuna may earn a commission if you apply through this link, at no extra cost to you.</p>
         </article>
