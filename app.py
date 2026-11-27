@@ -163,7 +163,7 @@ def blog_article(slug):
     visible_slugs = {a["slug"] for a in _visible_articles()}
     body = (BLOG_CONTENT / (article["slug"] + ".html")).read_text(encoding="utf-8")
     # When only some articles are published, keep references readable without dead links.
-    body = re.sub(r'<a href="/blog/([^"/#]+)(#[^"]*)?">(.*?)</a>',
+    body = re.sub(r'<a href="/blog/([^"]+)(#[^"]*)?">(.*?)</a>',
                   lambda match: match.group(0) if match.group(1) in visible_slugs else match.group(3),
                   body, flags=re.DOTALL)
     related = [a for a in _visible_articles() if a["slug"] != slug][:3]
@@ -202,10 +202,18 @@ def blog_download(name):
                                download_name=f"creditluna-{DOWNLOAD_FILES[name]}")
 
 
+@app.get("/violations-finder")
+def violations_finder():
+    return render_template("violations_finder.html",
+                           canonical=SITE_URL + "/violations-finder",
+                           title="Debt collector violations finder | CreditLuna",
+                           description="A guided walkthrough of common debt-collection and credit-reporting issues, with the federal rule behind each one. Runs in your browser; nothing is sent or stored. Education, not legal advice.")
+
+
 @app.get("/sitemap.xml")
 def sitemap():
     from xml.sax.saxutils import escape
-    urls = [SITE_URL + "/", SITE_URL + "/blog"]
+    urls = [SITE_URL + "/", SITE_URL + "/violations-finder", SITE_URL + "/blog"]
     urls.extend(SITE_URL + "/blog/" + a["slug"] for a in _blog_articles() if a["status"] == "published")
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' + ''.join(
         '<url><loc>' + escape(url) + '</loc></url>' for url in urls
