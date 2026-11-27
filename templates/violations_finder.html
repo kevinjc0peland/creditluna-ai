@@ -1,0 +1,492 @@
+{% extends 'blog_base.html' %}
+{% block head_extra %}
+<style>
+  :root { --flav: #BEBBD2; --fnavy: #17223b; --fpurple: #8D81A8; --fcream: #F7F3E9; }
+  .finder { max-width: 820px; margin: 0 auto; }
+  .f-kicker { font-size: 12px; letter-spacing: 2.4px; text-transform: uppercase; font-weight: 800; color: var(--fpurple); margin: 26px 0 0; }
+  .finder h1 { font-family: Georgia, 'Times New Roman', serif; font-size: clamp(32px, 6vw, 46px); letter-spacing: -1px; line-height: 1.06; margin: 8px 0 10px; color: var(--fnavy); }
+  .f-lede { font-size: 15px; line-height: 1.7; margin: 0 0 6px; color: var(--fnavy); }
+  .f-card { background: #fff; border: 1px solid var(--flav); border-radius: 6px; padding: 18px 20px; margin: 16px 0; }
+  .f-step { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; color: var(--fpurple); margin-bottom: 4px; }
+  .f-card h2 { font-family: Georgia, serif; font-size: 21px; margin: 0 0 6px; color: var(--fnavy); }
+  .f-card h3 { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--fnavy); margin: 18px 0 8px; }
+  .f-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+  @media (max-width: 560px) { .f-grid { grid-template-columns: 1fr; } }
+  .f-grid label { font-size: 13px; font-weight: 700; color: var(--fnavy); display: block; }
+  .f-grid select, .f-grid input { width: 100%; margin-top: 5px; padding: 9px 10px; font-size: 14px; border: 1px solid var(--flav); border-radius: 4px; background: #fff; color: var(--fnavy); font-family: inherit; }
+  .f-sol { font-size: 13.5px; line-height: 1.65; background: var(--fcream); border-left: 4px solid var(--fpurple); padding: 10px 12px; margin: 12px 0 0; color: var(--fnavy); }
+  .f-sol b { font-size: 15px; }
+  .f-note { font-size: 12.5px; color: #57506e; line-height: 1.6; margin: 10px 0 0; }
+  .f-q { border-top: 1px solid var(--flav); padding: 14px 0 6px; }
+  .f-q p.ask { font-size: 14.5px; font-weight: 700; color: var(--fnavy); margin: 0 0 4px; }
+  .f-q p.help { font-size: 12.5px; color: #57506e; line-height: 1.6; margin: 0 0 8px; }
+  .f-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .f-opts label { font-size: 13px; border: 1px solid var(--flav); border-radius: 4px; padding: 6px 12px; cursor: pointer; background: #fff; color: var(--fnavy); }
+  .f-opts input { margin-right: 6px; }
+  .f-opts label:has(input:checked) { background: var(--fpurple); color: #fff; border-color: var(--fpurple); }
+  .f-go { display: inline-block; background: var(--fnavy); color: #F7F3E9; border: 0; border-radius: 4px; padding: 13px 26px; font-size: 15px; font-weight: 800; cursor: pointer; margin: 18px 0 6px; }
+  .f-reset { background: none; border: 0; color: var(--fpurple); font-size: 13px; cursor: pointer; text-decoration: underline; margin-left: 12px; }
+  .f-count { font-family: Georgia, serif; font-size: 34px; color: var(--fnavy); margin: 0; }
+  .f-tier { font-size: 12px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 9px; border-radius: 3px; color: #fff; display: inline-block; }
+  .f-t1 { background: #8D3B3B; } .f-t2 { background: #A8742F; } .f-t3 { background: var(--fpurple); }
+  .f-flag { border: 1px solid var(--flav); border-radius: 5px; padding: 13px 15px; margin: 10px 0; background: #fff; }
+  .f-flag h4 { font-size: 15px; margin: 0 0 3px; color: var(--fnavy); }
+  .f-flag p { font-size: 13px; line-height: 1.65; color: #38334a; margin: 5px 0; }
+  .f-flag .f-cite { font-family: Georgia, serif; font-style: italic; font-size: 12.5px; color: var(--fpurple); }
+  .f-flag .f-next { border-top: 1px dashed var(--flav); margin-top: 8px; padding-top: 8px; font-size: 12.5px; }
+  .f-flag .f-next b { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--fpurple); }
+  .f-panel { background: var(--fcream); border: 1px solid var(--flav); border-radius: 6px; padding: 16px 18px; margin: 16px 0; font-size: 13.5px; line-height: 1.7; color: var(--fnavy); }
+  .f-panel ul { margin: 8px 0 0; padding-left: 18px; }
+  .f-panel a { color: #5b4a8a; }
+  .f-actions { margin: 16px 0 4px; }
+  @media print {
+    .site-header, .site-footer, .f-actions, .f-go, .f-reset, .blog-back, .f-kicker { display: none; }
+    body { background: #fff; }
+    .f-card { border: 1px solid #ccc; page-break-inside: avoid; }
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="finder">
+  <a class="blog-back" href="/blog">← All guides</a>
+  <p class="f-kicker">Free tool</p>
+  <h1>Debt collector violations finder</h1>
+  <p class="f-lede">Answer what you can see in your letters, your call log and your credit reports. You get the federal rule behind each possible issue, sorted by how strong it is, with the next step for each one.</p>
+  <p class="article-notice">Educational information, not legal advice. This flags issues worth a closer look — it does not decide that a law was broken. Nothing you enter is sent or stored: it runs entirely in your browser.</p>
+
+  <form id="finderForm" onsubmit="return false">
+    <section class="f-card">
+      <div class="f-step">Step 1 · The setup</div>
+      <h2>Start with the basics</h2>
+      <div class="f-grid">
+        <label>Where do you live?
+          <select id="gState"></select>
+        </label>
+        <label>What kind of debt?
+          <select id="gType">
+            <option value="c">Credit card</option>
+            <option value="m">Medical bill</option>
+            <option value="w">Auto loan</option>
+            <option value="w">Personal or installment loan</option>
+            <option value="o">Utility or phone account</option>
+            <option value="fed">Federal student loan</option>
+            <option value="w">Other</option>
+          </select>
+        </label>
+        <label>Who is collecting it now?
+          <select id="gWho">
+            <option value="tp">A collection agency or debt buyer</option>
+            <option value="law">A law firm collecting for someone else</option>
+            <option value="oc">The original creditor itself</option>
+            <option value="unk">Not sure yet</option>
+          </select>
+        </label>
+        <label>Your last payment on this debt (month is fine)
+          <input type="month" id="gPay" />
+        </label>
+      </div>
+      <p class="f-sol" id="solOut" hidden></p>
+      <p class="f-note" id="whoOut"></p>
+    </section>
+
+    <div id="qsHost"></div>
+
+    <button class="f-go" type="button" onclick="runFinder()">See my results</button>
+    <button class="f-reset" type="button" onclick="resetFinder()">Start over</button>
+  </form>
+
+  <section id="results" hidden>
+    <section class="f-card">
+      <div class="f-step">Your results</div>
+      <h2>What your answers raise</h2>
+      <p class="f-note">These are issues to check against your records, in three strengths. A flag is not a conclusion — a court or regulator decides that, from documents.</p>
+      <div id="rCounts"></div>
+      <div id="rSol"></div>
+      <div id="rFlags"></div>
+      <div id="rQuiet"></div>
+    </section>
+    <aside class="f-panel">
+      <b>Next steps, in order.</b>
+      <ul>
+        <li>Keep everything: dated letters and envelopes, call logs with times, and screenshots of the tradeline from each bureau.</li>
+        <li>Draft your dispute or validation letter in the <a href="/#letters">Letter workspace</a>, then review and send it yourself. Keep a copy of what you send.</li>
+        <li>Complain to the <a href="https://www.consumerfinance.gov/complaint/" target="_blank" rel="noopener noreferrer">CFPB</a> — it routes to the company and builds a record. The <a href="https://www.bbb.org/" target="_blank" rel="noopener noreferrer">BBB</a> and your state attorney general take the same kinds of complaints.</li>
+        <li>Several Tier 1 flags together are worth a consult with a consumer-law attorney (<a href="https://www.consumeradvocates.org/" target="_blank" rel="noopener noreferrer">NACA's finder</a> is a common starting point).</li>
+        <li>Read the <a href="/blog">CreditLuna guides</a> for the background behind each rule.</li>
+      </ul>
+    </aside>
+    <p class="last-reviewed">Education only — CreditLuna never files, disputes or negotiates for anyone. Compiled from the federal statutes as written; confirm any date, amount or citation against your own documents before it goes in a letter.</p>
+    <div class="f-actions">
+      <button class="f-go" type="button" onclick="window.print()">Save results as PDF</button>
+    </div>
+  </section>
+</div>
+
+<script>
+var SOL = {
+  "Alabama": { w: 6, o: 6, c: 3, t: "card ran as open account in Ayers v. Cavalry (2003)" },
+  "Alaska": { w: 3, o: 3, c: 3, t: "" },
+  "Arizona": { w: 6, o: 3, c: 6, t: "credit cards named in the six-year statute" },
+  "Arkansas": { w: 5, o: 3, c: 5, t: "five years, a non-uniform adoption" },
+  "California": { w: 4, o: 2, c: 4, t: "payment never revives a barred claim" },
+  "Colorado": { w: 6, o: 6, c: 6, t: "six years for any liquidated debt, written or not" },
+  "Connecticut": { w: 6, o: 3, c: 6, t: "" },
+  "Delaware": { w: 3, o: 3, c: 3, t: "" },
+  "District of Columbia": { w: 3, o: 3, c: 3, t: "revival of consumer debt barred; medical 3y" },
+  "Florida": { w: 5, o: 4, c: 4, t: "judgment lives 20 years; medical 3y from referral" },
+  "Georgia": { w: 6, o: 4, c: 4, t: "6y written only if the card agreement is produced" },
+  "Hawaii": { w: 6, o: 6, c: 6, t: "" },
+  "Idaho": { w: 5, o: 4, c: 5, t: "unsigned card agreement still counts as written (Unifund v. Lowe, 2016)" },
+  "Illinois": { w: 10, o: 5, c: 5, t: "cards treated as unwritten, 5y governs (Feltman, 2009)" },
+  "Indiana": { w: 6, o: 6, c: 6, t: "" },
+  "Iowa": { w: 10, o: 5, c: "5 or 10", t: "UNSETTLED: card classification undecided" },
+  "Kansas": { w: 5, o: 3, c: "3 or 5", t: "UNSETTLED: card classification undecided" },
+  "Kentucky": { w: 10, o: 5, c: 5, t: "" },
+  "Louisiana": { w: 3, o: 3, c: 3, t: "civil-law prescription" },
+  "Maine": { w: 6, o: 6, c: 6, t: "" },
+  "Maryland": { w: 3, o: 3, c: 3, t: "revival of consumer debt barred" },
+  "Massachusetts": { w: 6, o: 6, c: 6, t: "" },
+  "Michigan": { w: 6, o: 6, c: 6, t: "" },
+  "Minnesota": { w: 6, o: 6, c: 6, t: "" },
+  "Mississippi": { w: 3, o: 3, c: 3, t: "" },
+  "Missouri": { w: 10, o: 5, c: 5, t: "cards treated as unwritten unless signed, 5y (Creed, 2007)" },
+  "Montana": { w: 6, o: 5, c: 5, t: "" },
+  "Nebraska": { w: 5, o: 4, c: 4, t: "card classification undecided by the supreme court" },
+  "Nevada": { w: 6, o: 4, c: 4, t: "revival barred (2023), all debt" },
+  "New Hampshire": { w: 3, o: 3, c: 3, t: "mortgage notes track the mortgage" },
+  "New Jersey": { w: 6, o: 6, c: 6, t: "" },
+  "New Mexico": { w: 6, o: 4, c: 4, t: "" },
+  "New York": { w: 3, o: 3, c: 3, t: "consumer-credit figures; revival of consumer debt barred (2022); medical 3y" },
+  "North Carolina": { w: 3, o: 3, c: 3, t: "sealed note 10y" },
+  "North Dakota": { w: 6, o: 6, c: 6, t: "" },
+  "Ohio": { w: 6, o: 4, c: 6, t: "six years on any consumer debt, written or not" },
+  "Oklahoma": { w: 5, o: 3, c: 3, t: "borrows whichever state's period is longer" },
+  "Oregon": { w: 6, o: 6, c: 6, t: "account runs from last charge or payment" },
+  "Pennsylvania": { w: 4, o: 4, c: 4, t: "under seal 20y" },
+  "Rhode Island": { w: 10, o: 10, c: 10, t: "longest in the country" },
+  "South Carolina": { w: 3, o: 3, c: 3, t: "mortgage-secured note 20y" },
+  "South Dakota": { w: 6, o: 6, c: 6, t: "" },
+  "Tennessee": { w: 6, o: 6, c: 6, t: "same six years for every claim shape" },
+  "Texas": { w: 4, o: 4, c: 4, t: "debt-buyer revival barred" },
+  "Utah": { w: 6, o: 4, c: "4 or 6", t: "UNSETTLED: legislature pointed to 6y in 2019" },
+  "Vermont": { w: 6, o: 6, c: 6, t: "witnessed note 14y" },
+  "Virginia": { w: 5, o: 3, c: 3, t: "Va. Code 8.01-246; medical 3y from final invoice" },
+  "Washington": { w: 6, o: 3, c: 6, t: "six years on any account receivable" },
+  "West Virginia": { w: 10, o: 5, c: 5, t: "five years, a non-uniform adoption" },
+  "Wisconsin": { w: 6, o: 6, c: 6, t: "expiry extinguishes the right itself" },
+  "Wyoming": { w: 10, o: 8, c: 8, t: "" }
+};
+
+var CHECKS = [
+  {
+    id: "A1", sec: "A · The validation window", tier: 1, trigger: "no",
+    ask: "Did the collector send you a written validation notice within five days of first contacting you?",
+    help: "That first letter should state the amount owed, the name of the creditor, and your right to dispute within 30 days.",
+    title: "Validation notice missing or late",
+    cite: "15 U.S.C. § 1692g(a)",
+    what: "Within five days of first contact, a debt collector must send written notice of the amount and the creditor, and of your 30-day dispute right. A missing or late notice is one of the most commonly cited issues.",
+    next: "Search your mail and email again for anything from them dated within five days of the first contact. If it never came, write down the first-contact date and keep it — the absence is the fact."
+  },
+  {
+    id: "A2", sec: "A · The validation window", tier: 2, trigger: "yes", needs: "disputed",
+    ask: "After you disputed in writing, did they keep calling, reporting or sending letters without first sending validation?",
+    help: "Your 30-day written dispute pauses debt collection until they mail validation of the debt.",
+    title: "Collection continued during the dispute window",
+    cite: "15 U.S.C. § 1692g(b)",
+    what: "If a consumer disputes in writing within 30 days, collection of the debt (or any part of it) must stop until the collector mails verification. Courts read this strictly; reporting while the window is open is argued both ways in the case law.",
+    next: "Save dated copies of your dispute, everything they sent after it, and screenshots of the tradeline during the window."
+  },
+  {
+    id: "B1", sec: "B · How it is reported", tier: 1, trigger: "yes",
+    ask: "Did the date of first delinquency (or the 'first late' date) move to a later date after the item first appeared on your reports?",
+    help: "Re-aging keeps a negative item alive longer than the law allows. Compare the oldest report you can find with today's.",
+    title: "Possible re-aging of the delinquency date",
+    cite: "15 U.S.C. § 1681s-2(a)(5)",
+    what: "A furnisher must report the month and year of the first delinquency that led to the negative status, and that date may not be changed afterward. A moving DOFD is a serious reporting issue.",
+    next: "Pull the oldest credit report you have (annualcreditreport.com gives free weekly reports) and screenshot the DOFD on each bureau. The paper trail of the date moving is the evidence."
+  },
+  {
+    id: "B2", sec: "B · How it is reported", tier: 2, trigger: "yes",
+    ask: "Does the tradeline still show Open when the account was charged off, paid, or settled?",
+    help: "Look at the account status field on any bureau report.",
+    title: "Status shows Open on a closed account",
+    cite: "15 U.S.C. § 1681s-2(a); Metro 2 status fields",
+    what: "A charged-off, paid or settled account reporting as Open misstates the account. Accuracy of status is a furnisher duty under § 1681s-2(a).",
+    next: "Screenshot the status field with the date. Note what the account actually is in your records."
+  },
+  {
+    id: "B3", sec: "B · How it is reported", tier: 2, trigger: "yes",
+    ask: "Do new monthly late marks keep appearing after the charge-off date?",
+    help: "A charged-off account stops accruing new lates. Fresh 30/60/90-day marks after charge-off suggest the furnace keeps cycling.",
+    title: "Late marks added after charge-off",
+    cite: "15 U.S.C. § 1681s-2(a)(1),(5)",
+    what: "Once an account is charged off there is no new monthly payment to be late on. Continuing late entries inflate the damage long past the event.",
+    next: "Screenshot the payment-history grid. Count the lates that fall after the charge-off month."
+  },
+  {
+    id: "B4", sec: "B · How it is reported", tier: 3, trigger: "yes",
+    ask: "Is a Past Due amount still showing on a charged-off account?",
+    help: "Some furnishers report a past-due figure on charged-off accounts; the practice is disputed and depends on the reporting convention used.",
+    title: "Past Due balance after charge-off",
+    cite: "15 U.S.C. § 1681s-2(a); Metro 2 conventions",
+    what: "Whether a past-due figure on a charged-off account is wrong is contested. It is worth questioning, with the caveat that some reporting is defensible.",
+    next: "Note the figure and the date. Ask the furnisher which Metro 2 convention produced it."
+  },
+  {
+    id: "B5", sec: "B · How it is reported", tier: 2, trigger: "yes",
+    ask: "Has the balance grown since the charge-off (interest or fees added on top)?",
+    help: "Compare the balance at charge-off with the balance today.",
+    title: "Balance grew after charge-off",
+    cite: "15 U.S.C. § 1681s-2(a); § 1692f (unauthorized charges)",
+    what: "Interest or fees added after charge-off must be authorized by the agreement or permitted by law. A balance that climbs without basis is both a reporting and a collection issue.",
+    next: "List the balance on each dated document you hold: statement at charge-off, first collection letter, latest report."
+  },
+  {
+    id: "B6", sec: "B · How it is reported", tier: 2, trigger: "yes",
+    ask: "Do the bureaus show different balances, dates or statuses for the same account?",
+    help: "Line up all three bureau reports side by side.",
+    title: "Cross-bureau mismatch",
+    cite: "15 U.S.C. § 1681s-2(a); § 1681i",
+    what: "The same account should not tell three stories. Mismatches between bureaus point to sloppy furnishing and give you something concrete to dispute.",
+    next: "Make a simple table: bureau, DOFD, balance, status, date pulled. The differences are your exhibit."
+  },
+  {
+    id: "B7", sec: "B · How it is reported", tier: 3, trigger: "yes",
+    ask: "Does the amount they claim not match your own records?",
+    help: "Statements, payment confirmations, settlement letters.",
+    title: "Amount does not match your records",
+    cite: "15 U.S.C. § 1692e(2)(A); § 1681s-2(a)",
+    what: "Claiming an amount you can document as wrong is a false representation, and the reported balance should match reality.",
+    next: "Write down their number and yours and the documents behind yours. Keep the records, do not send originals."
+  },
+  {
+    id: "C1", sec: "C · What happened after you disputed", tier: 2, trigger: "yes",
+    ask: "You filed a dispute with a credit bureau and heard nothing back after about 35 days?",
+    help: "The bureau generally has 30 days from receiving your dispute (up to 45 in some cases) to complete its investigation.",
+    title: "Dispute investigation not completed in time",
+    cite: "15 U.S.C. § 1681i(a)(1)",
+    what: "A bureau must investigate and report results within the statutory window. Silence or a slow result is worth a follow-up and a complaint record.",
+    next: "Note the date you filed and how (online or mail). If nothing came, send a short follow-up referencing that date."
+  },
+  {
+    id: "C2", sec: "C · What happened after you disputed", tier: 2, trigger: "yes",
+    ask: "When you asked for the method of verification, did they refuse or send nothing?",
+    help: "After a dispute is verified, the bureau must describe the method of verification on request.",
+    title: "No method of verification on request",
+    cite: "15 U.S.C. § 1681i(a)(6)(B), (a)(7)",
+    what: "If an item comes back 'verified' and you ask how, the bureau must tell you the method, including contact info for the furnisher. Refusal is a documented procedural issue.",
+    next: "Send the request in writing and keep the dated copy. Silence after a written request is the fact you will use."
+  },
+  {
+    id: "C3", sec: "C · What happened after you disputed", tier: 2, trigger: "yes",
+    ask: "While your dispute was pending, did the furnisher keep reporting the item without any 'disputed' marking?",
+    help: "During an active dispute, the item is supposed to carry a disputed indicator.",
+    title: "Item not marked as disputed during the dispute",
+    cite: "15 U.S.C. § 1681s-2(b)(1)(C)",
+    what: "A furnisher notified of a dispute must mark the information as disputed while the investigation is pending. A bare tradeline through the window is the issue.",
+    next: "Screenshot the tradeline dated inside the dispute window, and note the date the furnisher was notified."
+  },
+  {
+    id: "D1", sec: "D · How they behaved", tier: 1, trigger: "yes",
+    ask: "After you sent a written request to stop contact, did they contact you again?",
+    help: "After a cease letter they may only confirm no further contact or say they are taking a specific action, such as suing.",
+    title: "Contact continued after a written cease request",
+    cite: "15 U.S.C. § 1692c(c)",
+    what: "A written request to stop contacting you must be honored, with narrow exceptions for stated limited purposes. Anything past that is one of the cleanest issues on this list.",
+    next: "Keep the cease letter, the proof of mailing, and a log of every contact after it."
+  },
+  {
+    id: "D2", sec: "D · How they behaved", tier: 1, trigger: "yes",
+    ask: "Have they called before 8:00 AM or after 9:00 PM in your local time?",
+    help: "Check your phone's call log timestamps.",
+    title: "Calls outside permitted hours",
+    cite: "15 U.S.C. § 1692c(a)",
+    what: "Calls at inconvenient times — before 8 in the morning or after 9 at night, your local time — are barred. The call log is the evidence.",
+    next: "Screenshot the call log entries with dates and times. Note your time zone."
+  },
+  {
+    id: "D3", sec: "D · How they behaved", tier: 2, trigger: "yes",
+    ask: "Repeated back-to-back calls, calls to your workplace after being told to stop, or calls meant to annoy or harass?",
+    help: "Frequency plus intent is the test. A log makes the pattern visible.",
+    title: "Harassing or repeated contact",
+    cite: "15 U.S.C. § 1692d",
+    what: "Contact whose natural consequence is to harass, oppress or abuse is barred: repeated dials, workplace calls after notice, and the like.",
+    next: "Build the log: date, time, number, what was said. Patterns persuade; single calls do not."
+  },
+  {
+    id: "D4", sec: "D · How they behaved", tier: 1, trigger: "yes",
+    ask: "Have they threatened a lawsuit, arrest or wage garnishment over this debt?",
+    help: "Especially if your state's clock (Step 1) shows the debt may be time-barred.",
+    title: "Suit threatened on a possibly time-barred debt",
+    cite: "15 U.S.C. § 1692e(2)(J); 12 CFR § 1006.26",
+    what: "Threatening action the collector cannot legally take is a false representation. Suing or threatening to sue on a time-barred debt is squarely in that lane, and the CFPB rule names it.",
+    next: "Save the letter or note the call where the threat was made, word for word, with the date."
+  },
+  {
+    id: "D5", sec: "D · How they behaved", tier: 2, trigger: "yes",
+    ask: "Is this a debt buyer, and when you asked for proof they own the debt, did they produce nothing?",
+    help: "Assignment agreements, a bill of sale, chain of title from the original creditor.",
+    title: "No proof of ownership from a debt buyer",
+    cite: "15 U.S.C. § 1692g(b), § 1692e(10)",
+    what: "A debt buyer collecting without being able to show it owns the debt raises both the validation question and the false-representation question.",
+    next: "Put the ownership request in writing and keep the dated copy. Read the CreditLuna guide on sold debts for what to ask for."
+  },
+  {
+    id: "D6", sec: "D · How they behaved", tier: 3, trigger: "no",
+    ask: "Do their letters or messages lack the words 'this is an attempt to collect a debt'?",
+    help: "The mini-Miranda line must appear on communications from debt collectors.",
+    title: "Missing mini-Miranda disclosure",
+    cite: "15 U.S.C. § 1692e(11)",
+    what: "Communications from a debt collector must disclose they are from a debt collector. Letters without the line are worth noting, with the caveat that context matters.",
+    next: "Photograph or scan every letter you have from them, front and back."
+  }
+];
+
+function el(id) { return document.getElementById(id); }
+
+function fillStates() {
+  var s = el("gState"), out = "";
+  for (var name in SOL) { out += '<option>' + name + '</option>'; }
+  s.innerHTML = out;
+}
+
+function solCheck() {
+  var out = el("solOut");
+  var state = el("gState").value, typeSel = el("gType"), type = typeSel.value;
+  var pay = el("gPay").value;
+  out.hidden = false;
+  if (type === "fed") {
+    out.innerHTML = "<b>Federal student loans have no deadline at all.</b> The state clock does not apply — different rules govern these loans entirely.";
+    return null;
+  }
+  var row = SOL[state];
+  if (!row) { out.innerHTML = "Pick a state to see the clock."; return null; }
+  var years = row[type];
+  var label = type === "c" ? "open account / credit card" : (type === "w" ? "written contract" : "oral or open account");
+  var line = "<b>" + state + ": " + years + " years</b> for a " + label + ". The clock starts at the first missed payment; a payment or written acknowledgment can restart it.";
+  if (row.t) { line += " <i>" + row.t + "</i>"; }
+  out.innerHTML = line;
+  if (!pay) { return { state: state, years: years, note: row.t, expired: null }; }
+  var parts = pay.split("-");
+  var payDate = new Date(Number(parts[0]), Number(parts[1]) - 1, 15);
+  var now = new Date();
+  var elapsed = (now - payDate) / (365.25 * 24 * 3600 * 1000);
+  var num = parseFloat(years);
+  var expired = elapsed > num;
+  var verdict = expired
+    ? "Your last payment was " + elapsed.toFixed(1) + " years ago — past the " + years + "-year clock. This debt may be time-barred: they can still call and report, but they cannot sue you or threaten to sue."
+    : "Your last payment was " + elapsed.toFixed(1) + " years ago — inside the " + years + "-year clock. A lawsuit is still possible, so treat the threat of one as real.";
+  out.innerHTML = line + "<br>" + verdict;
+  return { state: state, years: years, note: row.t, expired: expired };
+}
+
+function whoNote() {
+  var w = el("gWho").value;
+  var notes = {
+    tp: "", law: "", oc: "The FDCPA covers third-party collectors and debt buyers, not the original creditor collecting its own debt. The reporting rules (Section B) still apply to original creditors; the conduct rules (Section D) may not — your state's own collection law may fill some of that gap.",
+    unk: "Not sure who holds it? That is the first thing to nail down: the validation notice names the collector, and a credit report tradeline names the furnisher."
+  };
+  el("whoOut").textContent = notes[w] || "";
+}
+
+var chosen = {};
+
+function renderQuestions() {
+  var host = el("qsHost"), html = "";
+  var lastSec = "";
+  for (var i = 0; i < CHECKS.length; i++) {
+    var c = CHECKS[i];
+    if (c.sec !== lastSec) {
+      lastSec = c.sec;
+      html += '<section class="f-card"><div class="f-step">Step 2 · Walk the blocks</div><h3>' + c.sec + '</h3>';
+    }
+    html += '<div class="f-q" id="q-' + c.id + '"><p class="ask">' + c.ask + '</p><p class="help">' + c.help + '</p><div class="f-opts">';
+    var opts = ["yes", "no", "unsure"];
+    for (var j = 0; j < opts.length; j++) {
+      html += '<label><input type="radio" name="' + c.id + '" value="' + opts[j] + '" onchange="chosen[\'' + c.id + '\']=this.value; markUnsure(\'' + c.id + '\')">' + opts[j] + '</label>';
+    }
+    html += '</div></div>';
+    var nxt = (i + 1 < CHECKS.length) ? CHECKS[i + 1] : null;
+    if (!nxt || nxt.sec !== c.sec) { html += '</section>'; }
+  }
+  host.innerHTML = html;
+}
+
+function markUnsure(id) {
+  var q = el("q-" + id);
+  var val = chosen[id];
+  q.style.opacity = val === "unsure" ? "0.55" : "1";
+}
+
+function runFinder() {
+  var sol = solCheck();
+  whoNote();
+  var disputed = chosen["A1"] === undefined ? false : true; // placeholder, replaced below
+  var disputedAnswer = getRadio("C1") !== null || getRadio("A2") !== null;
+  var flags = [], unres = [];
+  for (var i = 0; i < CHECKS.length; i++) {
+    var c = CHECKS[i];
+    var ans = chosen[c.id];
+    if (ans === undefined) { unres.push(c); continue; }
+    if (ans === c.trigger) { flags.push(c); }
+  }
+  renderResults(flags, unres, sol);
+}
+
+function getRadio(id) {
+  var sel = document.querySelector('input[name="' + id + '"]:checked');
+  return sel ? sel.value : null;
+}
+
+function tierBadge(t) {
+  var names = { 1: ["Tier 1", "f-t1"], 2: ["Tier 2", "f-t2"], 3: ["Tier 3", "f-t3"] };
+  return '<span class="f-tier ' + names[t][1] + '">' + names[t][0] + '</span>';
+}
+
+function renderResults(flags, unres, sol) {
+  var counts = { 1: 0, 2: 0, 3: 0 };
+  for (var i = 0; i < flags.length; i++) { counts[flags[i].tier]++; }
+  var html = '<p class="f-count">' + flags.length + ' possible issue' + (flags.length === 1 ? "" : "s") + ' flagged</p>';
+  html += '<p class="f-note">Tier 1 (strongest): ' + counts[1] + ' · Tier 2 (likely with records): ' + counts[2] + ' · Tier 3 (context matters): ' + counts[3] + '</p>';
+  el("rCounts").innerHTML = html;
+  var solHtml = "";
+  if (sol && sol.expired === true) {
+    solHtml = '<div class="f-flag"><h4>The state clock may have run out</h4><p>Your answers put this debt past ' + sol.state + '\'s ' + sol.years + '-year window, so it may be time-barred. ' + (sol.note ? sol.note + '. ' : '') + 'They can still call and still report — what they cannot do is sue you or threaten to sue.</p><p class="f-cite">Portfolio Recovery Associates v. King, 14 N.Y.3d 410 (forum state sets the clock)</p></div>';
+  } else if (sol && sol.expired === false) {
+    solHtml = '<div class="f-flag"><h4>The state clock is still running</h4><p>At ' + sol.years + ' years for ' + sol.state + ', a lawsuit on this debt is still possible. ' + (sol.note ? sol.note + '.' : '') + ' Treat any threat of suit as real until the clock is confirmed from your own payment records.</p></div>';
+  }
+  el("rSol").innerHTML = solHtml;
+  var fh = "";
+  for (var i = 0; i < flags.length; i++) {
+    var c = flags[i];
+    fh += '<div class="f-flag">' + tierBadge(c.tier) + '<h4>' + c.title + '</h4><p>' + c.what + '</p><p class="f-cite">' + c.cite + '</p><p class="f-next"><b>Next</b><br>' + c.next + '</p></div>';
+  }
+  el("rFlags").innerHTML = fh;
+  var uh = "";
+  if (unres.length) {
+    uh = '<div class="f-panel"><b>' + unres.length + ' question' + (unres.length === 1 ? "" : "s") + ' left unanswered.</b> Those checks were skipped — answer them and run again, or treat them as records to pull: ';
+    var names = [];
+    for (var j = 0; j < unres.length; j++) { names.push(unres[j].id); }
+    uh += names.join(", ") + ".</div>";
+  }
+  el("rQuiet").innerHTML = uh;
+  el("results").hidden = false;
+  el("results").scrollIntoView({ behavior: "smooth" });
+}
+
+function resetFinder() {
+  chosen = {};
+  renderQuestions();
+  el("results").hidden = true;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+el("gState").addEventListener("change", solCheck);
+el("gType").addEventListener("change", solCheck);
+el("gPay").addEventListener("input", solCheck);
+el("gWho").addEventListener("change", whoNote);
+fillStates();
+renderQuestions();
+solCheck();
+</script>
+{% endblock %}
